@@ -104,15 +104,27 @@ error_requests_query = """WITH totalRequests AS (
     WHERE 1=1
     AND (logs_err*100.0/logs_tot) > 1;"""
 
-# Running report queries for tasks 1-3
-data_art = create_internal_report(top_viewed_articles_query)
-data_authors = create_internal_report(top_viewed_authors_query)
-data_errors = create_internal_report(error_requests_query)
+# Functions to print results of internal report
+def print_top_articles():
+    data_art = create_internal_report(top_viewed_articles_query)
+    print("\nWhat are the most popular three articles of all time?")
+    print_internal_report(data_art)
 
-# Print results of internal report
-print("\nWhat are the most popular three articles of all time?")
-print_internal_report(data_art)
-print("\nWho are the most popular article authors of all time?")
-print_internal_report(data_authors)
-print("\nOn which days did more than 1% of requests lead to errors?")
-print_internal_report(data_errors)
+
+def print_top_authors():
+    data_authors = create_internal_report(top_viewed_authors_query)
+    print("\nWho are the most popular article authors of all time?")
+    print_internal_report(data_authors)
+
+
+def print_top_error_days():
+    data_errors = create_internal_report(error_requests_query)
+    print("\nOn which days did more than 1% of requests lead to errors?")
+    print_internal_report(data_errors)
+
+
+# Running report when executing script
+if __name__ == '__main__':
+    print_top_articles()
+    print_top_authors()
+    print_top_error_days()
