@@ -13,11 +13,22 @@ the articles read and the associated authors of those articles.
 import psycopg2
 
 
+# Writing helper function to connect to PostgreSQL database (db) with error handling
+def connect(database_name):
+    """Connect to db. Takes name as string. Returns db connection."""
+    try:
+        db = psycopg2.connect(database="{}".format(database_name))
+        c = db.cursor()
+        return db, c
+    except psycopg2.Error as e:
+        print "Unable to connect to database"
+        sys.exit(1) # The easier method
+
+
 # Creating functions to pull data and print results
 def create_internal_report(query_input):
-    """create an internal report output."""
-    db = psycopg2.connect(database="news")
-    c = db.cursor()
+    """Create an internal report output."""
+    db, c = connect("news")
     c.execute(query_input)
     results = c.fetchall()
     db.close()
@@ -25,7 +36,7 @@ def create_internal_report(query_input):
 
 
 def print_internal_report(data_input):
-    """print the internal report results."""
+    """Print the internal report results."""
     for i in range(len(data_input)):
         for j in range(len(data_input[i])-1):
             print("{} - {}".format(data_input[i][j], data_input[i][j+1]))
@@ -103,6 +114,7 @@ error_requests_query = """WITH totalRequests AS (
 
     WHERE 1=1
     AND (logs_err*100.0/logs_tot) > 1;"""
+
 
 # Functions to print results of internal report
 def print_top_articles():
