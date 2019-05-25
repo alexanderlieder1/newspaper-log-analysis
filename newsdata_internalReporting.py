@@ -118,18 +118,21 @@ error_requests_query = """WITH totalRequests AS (
 
 # Functions to print results of internal report
 def print_top_articles():
+    """Print top articles."""
     data_art = create_internal_report(top_viewed_articles_query)
     print("\nWhat are the most popular three articles of all time?")
     print_internal_report(data_art)
 
 
 def print_top_authors():
+    """Print top authors."""
     data_authors = create_internal_report(top_viewed_authors_query)
     print("\nWho are the most popular article authors of all time?")
     print_internal_report(data_authors)
 
 
 def print_top_error_days():
+    """Print top error days."""
     data_errors = create_internal_report(error_requests_query)
     print("\nOn which days did more than 1% of requests lead to errors?")
     print_internal_report(data_errors)
