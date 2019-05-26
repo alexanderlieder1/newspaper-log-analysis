@@ -20,11 +20,12 @@ This will print out the results to the open questions in your terminal.
 
 ### Program structure
 - Line 13 imports the library **psycopg2** which is needed to connect to a PostgreSQL Database
-- Line 17-24 is a function **create_internal_report** that takes a SQL query as an input, connects to the database, runs the query and returns the results in a list
-- Line 27-31 is a function **print_internal_report** that takes the list output from the previous function **create_internal_report** and prints the results in a readable manner ready to be inserted in an email e.g.
-- Line 37-105 are 3 SQL queries (1 for each question) that are used as an input for the function **create_internal_report** described above
-- Line 108-110 runs the function **create_internal_report** with each query and returns the reporting results
-- Line 113-118 prints the results to all questions using the **print_internal_report** function
+- Line 17-25 is a function **connect** that connects to a specific Postgres database and includes error handling
+- Line 29-35 is a function **create_internal_report** that takes a SQL query as an input, connects to the database, runs the query and returns the results in a list
+- Line 38-42 is a function **print_internal_report** that takes the list output from the previous function **create_internal_report** and prints the results in a readable manner ready to be inserted in an email e.g.
+- Line 48-116 are 3 SQL queries (1 for each question) that are used as an input for the function **create_internal_report** described above
+- Line 120-138 contains 3 functions (**print_top_articles**; **print_top_authors**; **print_top_error_days**) that print out results of the 3 questions in the requested format
+- Line 142-145 is the main program which is run when the Python code is executed
 
 ### Program output
 **1) What are the most popular three articles of all time?**
